@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "rootDir": "./",
+    "esModuleInterop": true,
+    "outDir": "./dist",
+    // "exclude": ["node_modules", "**/*.spec.ts"],
+    "forceConsistentCasingInFileNames": true,
+    "allowUnusedLabels": false,
+    "strict": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "lib": [
+      "ESNext"
+    ],
+    "typeRoots": [
+      "./types",
+      "./node_modules/@types",
+      "app/interface/global.d.ts"
+    ],
+    "resolveJsonModule": true,
+  },
+  "tsc-alias": {
+    "resolveFullPaths": true,
+    "verbose": false
+  }
+}

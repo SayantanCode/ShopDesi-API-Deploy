@@ -1,0 +1,1251 @@
+openapi: 3.0.0
+info:
+  title: Shop_Desi.in E-commerse API
+  version: 1.0.0
+servers:
+  - url: http://localhost:1500
+tags:
+  - name: Admin
+  - name: User
+paths:
+  /api/admin/auth/login:
+    post:
+      tags:
+        - Admin
+      summary: admin login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: sayantan648@gmail.com
+                password: Sayantan648@
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/admin/auth/profile:
+    get:
+      tags:
+        - Admin
+      summary: admin profile
+      parameters:
+        - name: x-auth-admin-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMThjZmY1NDRlNjYzMmIyMWRhNzUiLCJuYW1lIjoiU2F5YW50YW4gQ2hha3JhYm9ydHkiLCJlbWFpbCI6InNheWFudGFuNjQ4QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNzAxOTEyMCwiZXhwIjoxNzI3MTA1NTIwfQ.3NobzFtL-4CBdwJDkHajolTq-CKa0d-YwBuTT0_ZLGU
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/admin/auth/update-profile:
+    post:
+      tags:
+        - User
+      summary: user profile update
+      description: Update any field but not the password.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Sayantan Chakraborty
+                email:
+                  type: string
+                  example: sayantan648@gmail.com
+                phone:
+                  type: integer
+                  example: '1234567890'
+                address:
+                  type: string
+                  example: 123, london city palace
+                avatar:
+                  type: string
+                  format: binary
+      parameters:
+        - name: x-auth-user-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMWFlMWY1NDRlNjYzMmIyMWRhOTciLCJuYW1lIjoiUmF0YW4gU2Fya2FyIiwiZW1haWwiOiJyYXRhbjEyM0BnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNzA3NTQ1NiwiZXhwIjoxNzI3MTYxODU2fQ.D_qX9T8qP1bGXdx4eo3j_pXBPtYXBdLwB8HeSz74CG8
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/admin/auth/update-password:
+    post:
+      tags:
+        - Admin
+      summary: admin password update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                oldPassword: Sayantan648@1
+                newPassword: Sayantan648@
+      parameters:
+        - name: x-auth-admin-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMThjZmY1NDRlNjYzMmIyMWRhNzUiLCJuYW1lIjoiU2F5YW50YW4gQ2hha3JhYm9ydHkiLCJlbWFpbCI6InNheWFudGFuNjQ4QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNzAxOTEyMCwiZXhwIjoxNzI3MTA1NTIwfQ.3NobzFtL-4CBdwJDkHajolTq-CKa0d-YwBuTT0_ZLGU
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/admin/get/customers:
+    get:
+      tags:
+        - Admin
+      summary: customer list
+      parameters:
+        - name: x-auth-admin-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMThjZmY1NDRlNjYzMmIyMWRhNzUiLCJuYW1lIjoiU2F5YW50YW4gQ2hha3JhYm9ydHkiLCJlbWFpbCI6InNheWFudGFuNjQ4QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNzAxOTEyMCwiZXhwIjoxNzI3MTA1NTIwfQ.3NobzFtL-4CBdwJDkHajolTq-CKa0d-YwBuTT0_ZLGU
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/admin/update/customer/status/66ea0332b3c67add730dd22a:
+    post:
+      tags:
+        - Admin
+      summary: customer update status (toggle)
+      requestBody:
+        content: {}
+      parameters:
+        - name: x-auth-admin-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMThjZmY1NDRlNjYzMmIyMWRhNzUiLCJuYW1lIjoiU2F5YW50YW4gQ2hha3JhYm9ydHkiLCJlbWFpbCI6InNheWFudGFuNjQ4QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNzAxOTEyMCwiZXhwIjoxNzI3MTA1NTIwfQ.3NobzFtL-4CBdwJDkHajolTq-CKa0d-YwBuTT0_ZLGU
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/admin/delete/customer/66ea0332b3c67add730dd22a:
+    delete:
+      tags:
+        - Admin
+      summary: customer delete
+      parameters:
+        - name: x-auth-admin-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMThjZmY1NDRlNjYzMmIyMWRhNzUiLCJuYW1lIjoiU2F5YW50YW4gQ2hha3JhYm9ydHkiLCJlbWFpbCI6InNheWFudGFuNjQ4QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNzAxOTEyMCwiZXhwIjoxNzI3MTA1NTIwfQ.3NobzFtL-4CBdwJDkHajolTq-CKa0d-YwBuTT0_ZLGU
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/admin/carousel/create:
+    post:
+      tags:
+        - Admin
+      summary: carousel create
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: The most trusted brands
+                image:
+                  type: string
+                  format: binary
+      parameters:
+        - name: x-auth-admin-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMThjZmY1NDRlNjYzMmIyMWRhNzUiLCJuYW1lIjoiU2F5YW50YW4gQ2hha3JhYm9ydHkiLCJlbWFpbCI6InNheWFudGFuNjQ4QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNzAxOTEyMCwiZXhwIjoxNzI3MTA1NTIwfQ.3NobzFtL-4CBdwJDkHajolTq-CKa0d-YwBuTT0_ZLGU
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/admin/carousel/all:
+    get:
+      tags:
+        - Admin
+      summary: carousel list
+      parameters:
+        - name: x-auth-admin-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMThjZmY1NDRlNjYzMmIyMWRhNzUiLCJuYW1lIjoiU2F5YW50YW4gQ2hha3JhYm9ydHkiLCJlbWFpbCI6InNheWFudGFuNjQ4QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNzAxOTEyMCwiZXhwIjoxNzI3MTA1NTIwfQ.3NobzFtL-4CBdwJDkHajolTq-CKa0d-YwBuTT0_ZLGU
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/admin/carousel/update/66f0409b5544d246cc688cb4:
+    post:
+      tags:
+        - Admin
+      summary: carousel update
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: The most trusted Brands Products at affordable Price
+                image:
+                  type: string
+                  format: binary
+      parameters:
+        - name: x-auth-admin-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMThjZmY1NDRlNjYzMmIyMWRhNzUiLCJuYW1lIjoiU2F5YW50YW4gQ2hha3JhYm9ydHkiLCJlbWFpbCI6InNheWFudGFuNjQ4QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNzAxOTEyMCwiZXhwIjoxNzI3MTA1NTIwfQ.3NobzFtL-4CBdwJDkHajolTq-CKa0d-YwBuTT0_ZLGU
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/admin/carousel/delete/66f0409b5544d246cc688cb4:
+    delete:
+      tags:
+        - Admin
+      summary: carousel delete
+      parameters:
+        - name: x-auth-admin-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMThjZmY1NDRlNjYzMmIyMWRhNzUiLCJuYW1lIjoiU2F5YW50YW4gQ2hha3JhYm9ydHkiLCJlbWFpbCI6InNheWFudGFuNjQ4QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNzAxOTEyMCwiZXhwIjoxNzI3MTA1NTIwfQ.3NobzFtL-4CBdwJDkHajolTq-CKa0d-YwBuTT0_ZLGU
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/admin/brand/create:
+    post:
+      tags:
+        - Admin
+      summary: brand create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Addidas
+                logo: >-
+                  https://pbs.twimg.com/profile_images/1754405547627925504/Fzi_u2Zk_400x400.jpg
+                description: Shoes brand
+      parameters:
+        - name: x-auth-admin-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMThjZmY1NDRlNjYzMmIyMWRhNzUiLCJuYW1lIjoiU2F5YW50YW4gQ2hha3JhYm9ydHkiLCJlbWFpbCI6InNheWFudGFuNjQ4QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNzAxOTEyMCwiZXhwIjoxNzI3MTA1NTIwfQ.3NobzFtL-4CBdwJDkHajolTq-CKa0d-YwBuTT0_ZLGU
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/admin/brand/all:
+    get:
+      tags:
+        - Admin
+      summary: brand list
+      parameters:
+        - name: x-auth-admin-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMThjZmY1NDRlNjYzMmIyMWRhNzUiLCJuYW1lIjoiU2F5YW50YW4gQ2hha3JhYm9ydHkiLCJlbWFpbCI6InNheWFudGFuNjQ4QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNzAxOTEyMCwiZXhwIjoxNzI3MTA1NTIwfQ.3NobzFtL-4CBdwJDkHajolTq-CKa0d-YwBuTT0_ZLGU
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/admin/brand/update/66f04711deeac3bf38e1adae:
+    post:
+      tags:
+        - Admin
+      summary: brand update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Adidas
+                logo: >-
+                  https://pbs.twimg.com/profile_images/1754405547627925504/Fzi_u2Zk_400x400.jpg
+                description: Shoes brand
+      parameters:
+        - name: x-auth-admin-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMThjZmY1NDRlNjYzMmIyMWRhNzUiLCJuYW1lIjoiU2F5YW50YW4gQ2hha3JhYm9ydHkiLCJlbWFpbCI6InNheWFudGFuNjQ4QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNzAxOTEyMCwiZXhwIjoxNzI3MTA1NTIwfQ.3NobzFtL-4CBdwJDkHajolTq-CKa0d-YwBuTT0_ZLGU
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/admin/brand/delete/66f04711deeac3bf38e1adae:
+    delete:
+      tags:
+        - Admin
+      summary: brand delete
+      parameters:
+        - name: x-auth-admin-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMThjZmY1NDRlNjYzMmIyMWRhNzUiLCJuYW1lIjoiU2F5YW50YW4gQ2hha3JhYm9ydHkiLCJlbWFpbCI6InNheWFudGFuNjQ4QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNzAxOTEyMCwiZXhwIjoxNzI3MTA1NTIwfQ.3NobzFtL-4CBdwJDkHajolTq-CKa0d-YwBuTT0_ZLGU
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/admin/category/create:
+    post:
+      tags:
+        - Admin
+      summary: category create
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Beauty
+                description:
+                  type: string
+                image:
+                  type: string
+                  format: binary
+      parameters:
+        - name: x-auth-admin-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMThjZmY1NDRlNjYzMmIyMWRhNzUiLCJuYW1lIjoiU2F5YW50YW4gQ2hha3JhYm9ydHkiLCJlbWFpbCI6InNheWFudGFuNjQ4QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNzAxOTEyMCwiZXhwIjoxNzI3MTA1NTIwfQ.3NobzFtL-4CBdwJDkHajolTq-CKa0d-YwBuTT0_ZLGU
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/admin/category/all:
+    get:
+      tags:
+        - Admin
+      summary: product list
+      parameters:
+        - name: x-auth-admin-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMThjZmY1NDRlNjYzMmIyMWRhNzUiLCJuYW1lIjoiU2F5YW50YW4gQ2hha3JhYm9ydHkiLCJlbWFpbCI6InNheWFudGFuNjQ4QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNzAxOTEyMCwiZXhwIjoxNzI3MTA1NTIwfQ.3NobzFtL-4CBdwJDkHajolTq-CKa0d-YwBuTT0_ZLGU
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/admin/category/update/66f048bedeeac3bf38e1adb4:
+    post:
+      tags:
+        - Admin
+      summary: category update
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Beauty & Body Care
+                description:
+                  type: string
+                  example: For Women
+                image:
+                  type: string
+                  format: binary
+      parameters:
+        - name: x-auth-admin-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMThjZmY1NDRlNjYzMmIyMWRhNzUiLCJuYW1lIjoiU2F5YW50YW4gQ2hha3JhYm9ydHkiLCJlbWFpbCI6InNheWFudGFuNjQ4QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNzAxOTEyMCwiZXhwIjoxNzI3MTA1NTIwfQ.3NobzFtL-4CBdwJDkHajolTq-CKa0d-YwBuTT0_ZLGU
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/admin/category/delete/66f048bedeeac3bf38e1adb4:
+    delete:
+      tags:
+        - Admin
+      summary: category delete
+      parameters:
+        - name: x-auth-admin-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMThjZmY1NDRlNjYzMmIyMWRhNzUiLCJuYW1lIjoiU2F5YW50YW4gQ2hha3JhYm9ydHkiLCJlbWFpbCI6InNheWFudGFuNjQ4QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNzAxOTEyMCwiZXhwIjoxNzI3MTA1NTIwfQ.3NobzFtL-4CBdwJDkHajolTq-CKa0d-YwBuTT0_ZLGU
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/admin/subcategory/create:
+    post:
+      tags:
+        - Admin
+      summary: sub-category create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Novels
+                category: 66e3d93843a860623fe7549c
+      parameters:
+        - name: x-auth-admin-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMThjZmY1NDRlNjYzMmIyMWRhNzUiLCJuYW1lIjoiU2F5YW50YW4gQ2hha3JhYm9ydHkiLCJlbWFpbCI6InNheWFudGFuNjQ4QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNzAxOTEyMCwiZXhwIjoxNzI3MTA1NTIwfQ.3NobzFtL-4CBdwJDkHajolTq-CKa0d-YwBuTT0_ZLGU
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/admin/subcategory/all:
+    get:
+      tags:
+        - Admin
+      summary: sub-category list
+      parameters:
+        - name: x-auth-admin-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMThjZmY1NDRlNjYzMmIyMWRhNzUiLCJuYW1lIjoiU2F5YW50YW4gQ2hha3JhYm9ydHkiLCJlbWFpbCI6InNheWFudGFuNjQ4QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNzAxOTEyMCwiZXhwIjoxNzI3MTA1NTIwfQ.3NobzFtL-4CBdwJDkHajolTq-CKa0d-YwBuTT0_ZLGU
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/admin/subcategory/update/66f04cbebcb0a5ef198dea79:
+    post:
+      tags:
+        - Admin
+      summary: sub-category update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Novel
+                category: 66e3d93843a860623fe7549c
+      parameters:
+        - name: x-auth-admin-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMThjZmY1NDRlNjYzMmIyMWRhNzUiLCJuYW1lIjoiU2F5YW50YW4gQ2hha3JhYm9ydHkiLCJlbWFpbCI6InNheWFudGFuNjQ4QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNzAxOTEyMCwiZXhwIjoxNzI3MTA1NTIwfQ.3NobzFtL-4CBdwJDkHajolTq-CKa0d-YwBuTT0_ZLGU
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/admin/subcategory/delete/66f04cbebcb0a5ef198dea79:
+    delete:
+      tags:
+        - Admin
+      summary: sub-category delete
+      parameters:
+        - name: x-auth-admin-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMThjZmY1NDRlNjYzMmIyMWRhNzUiLCJuYW1lIjoiU2F5YW50YW4gQ2hha3JhYm9ydHkiLCJlbWFpbCI6InNheWFudGFuNjQ4QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNzAxOTEyMCwiZXhwIjoxNzI3MTA1NTIwfQ.3NobzFtL-4CBdwJDkHajolTq-CKa0d-YwBuTT0_ZLGU
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/admin/product/create:
+    post:
+      tags:
+        - Admin
+      summary: product create
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: ' Full Shirt'
+                description:
+                  type: string
+                  example: ' 100% Cotton'
+                mrp:
+                  type: string
+                  example: ' 1200'
+                costPrice:
+                  type: string
+                  example: ' 1000'
+                sellingPrice:
+                  type: string
+                  example: ' 1100'
+                category:
+                  type: string
+                  example: 66e3d93843a860623fe7549c
+                subCategory:
+                  type: string
+                  example: 66efd4cfd21176691edba511
+                brand:
+                  type: string
+                  example: 66e6d186c495932e6e7570e8
+                stock:
+                  type: string
+                  example: ' 10'
+                launchDate:
+                  type: string
+                  example: 12/12/12
+                image:
+                  type: string
+                  format: binary
+      parameters:
+        - name: x-auth-admin-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMThjZmY1NDRlNjYzMmIyMWRhNzUiLCJuYW1lIjoiU2F5YW50YW4gQ2hha3JhYm9ydHkiLCJlbWFpbCI6InNheWFudGFuNjQ4QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNzAxOTEyMCwiZXhwIjoxNzI3MTA1NTIwfQ.3NobzFtL-4CBdwJDkHajolTq-CKa0d-YwBuTT0_ZLGU
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/admin/product/update/66f0561c7005a15c67ee4ceb:
+    post:
+      tags:
+        - Admin
+      summary: product update
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Full Shirt
+                description:
+                  type: string
+                  example: 100% Cotton
+                mrp:
+                  type: integer
+                  example: '1500'
+                costPrice:
+                  type: integer
+                  example: '800'
+                sellingPrice:
+                  type: integer
+                  example: '1100'
+                category:
+                  type: string
+                  example: 66e3d93843a860623fe7549c
+                subCategory:
+                  type: string
+                  example: 66efd4cfd21176691edba511
+                brand:
+                  type: string
+                  example: 66e6d186c495932e6e7570e8
+                stock:
+                  type: string
+                  example: ' 10'
+                image:
+                  type: string
+                  format: binary
+      parameters:
+        - name: x-auth-admin-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMThjZmY1NDRlNjYzMmIyMWRhNzUiLCJuYW1lIjoiU2F5YW50YW4gQ2hha3JhYm9ydHkiLCJlbWFpbCI6InNheWFudGFuNjQ4QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNzAxOTEyMCwiZXhwIjoxNzI3MTA1NTIwfQ.3NobzFtL-4CBdwJDkHajolTq-CKa0d-YwBuTT0_ZLGU
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/admin/product/delete/66f0561c7005a15c67ee4ceb:
+    delete:
+      tags:
+        - Admin
+      summary: product delete
+      parameters:
+        - name: x-auth-admin-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMThjZmY1NDRlNjYzMmIyMWRhNzUiLCJuYW1lIjoiU2F5YW50YW4gQ2hha3JhYm9ydHkiLCJlbWFpbCI6InNheWFudGFuNjQ4QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNzAxOTEyMCwiZXhwIjoxNzI3MTA1NTIwfQ.3NobzFtL-4CBdwJDkHajolTq-CKa0d-YwBuTT0_ZLGU
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/admin/deal/create:
+    post:
+      tags:
+        - Admin
+      summary: deal create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                dealStart: '2024-09-22T10:38:54.674+00:00'
+                dealEnd: '2024-09-24T10:38:54.674+00:00'
+                discountedPercentage: '20'
+                product: 66efdb28c3ef3ae93c0e300b
+      parameters:
+        - name: x-auth-admin-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMThjZmY1NDRlNjYzMmIyMWRhNzUiLCJuYW1lIjoiU2F5YW50YW4gQ2hha3JhYm9ydHkiLCJlbWFpbCI6InNheWFudGFuNjQ4QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNzAxOTEyMCwiZXhwIjoxNzI3MTA1NTIwfQ.3NobzFtL-4CBdwJDkHajolTq-CKa0d-YwBuTT0_ZLGU
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/admin/deal/all:
+    get:
+      tags:
+        - Admin
+      summary: deal list
+      parameters:
+        - name: x-auth-admin-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMThjZmY1NDRlNjYzMmIyMWRhNzUiLCJuYW1lIjoiU2F5YW50YW4gQ2hha3JhYm9ydHkiLCJlbWFpbCI6InNheWFudGFuNjQ4QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNzAxOTEyMCwiZXhwIjoxNzI3MTA1NTIwfQ.3NobzFtL-4CBdwJDkHajolTq-CKa0d-YwBuTT0_ZLGU
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/admin/deal/update/66f0ee71dc19db3a308090e4:
+    post:
+      tags:
+        - Admin
+      summary: deal update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                dealStart: '2024-09-22T10:38:54.674+00:00'
+                dealEnd: '2024-09-24T10:38:54.674+00:00'
+                discountedPercentage: '25'
+                product: 66efdb28c3ef3ae93c0e300b
+      parameters:
+        - name: x-auth-admin-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMThjZmY1NDRlNjYzMmIyMWRhNzUiLCJuYW1lIjoiU2F5YW50YW4gQ2hha3JhYm9ydHkiLCJlbWFpbCI6InNheWFudGFuNjQ4QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNzAxOTEyMCwiZXhwIjoxNzI3MTA1NTIwfQ.3NobzFtL-4CBdwJDkHajolTq-CKa0d-YwBuTT0_ZLGU
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/admin/deal/delete/66f0ee71dc19db3a308090e4:
+    delete:
+      tags:
+        - Admin
+      summary: deal delete
+      parameters:
+        - name: x-auth-admin-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMThjZmY1NDRlNjYzMmIyMWRhNzUiLCJuYW1lIjoiU2F5YW50YW4gQ2hha3JhYm9ydHkiLCJlbWFpbCI6InNheWFudGFuNjQ4QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNzAxOTEyMCwiZXhwIjoxNzI3MTA1NTIwfQ.3NobzFtL-4CBdwJDkHajolTq-CKa0d-YwBuTT0_ZLGU
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/admin/orders/all:
+    get:
+      tags:
+        - Admin
+      summary: order list
+      parameters:
+        - name: x-auth-admin-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMThjZmY1NDRlNjYzMmIyMWRhNzUiLCJuYW1lIjoiU2F5YW50YW4gQ2hha3JhYm9ydHkiLCJlbWFpbCI6InNheWFudGFuNjQ4QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNzAxOTEyMCwiZXhwIjoxNzI3MTA1NTIwfQ.3NobzFtL-4CBdwJDkHajolTq-CKa0d-YwBuTT0_ZLGU
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/admin/orders/update-status/66e93a1975cbf27617b22f97:
+    post:
+      tags:
+        - Admin
+      summary: order items update status
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                productId: 66e6d339c495932e6e757112
+                status: Delivered
+      parameters:
+        - name: x-auth-admin-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMThjZmY1NDRlNjYzMmIyMWRhNzUiLCJuYW1lIjoiU2F5YW50YW4gQ2hha3JhYm9ydHkiLCJlbWFpbCI6InNheWFudGFuNjQ4QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNzAxOTEyMCwiZXhwIjoxNzI3MTA1NTIwfQ.3NobzFtL-4CBdwJDkHajolTq-CKa0d-YwBuTT0_ZLGU
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/admin/reviews/all:
+    get:
+      tags:
+        - Admin
+      summary: review list
+      parameters:
+        - name: x-auth-admin-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMThjZmY1NDRlNjYzMmIyMWRhNzUiLCJuYW1lIjoiU2F5YW50YW4gQ2hha3JhYm9ydHkiLCJlbWFpbCI6InNheWFudGFuNjQ4QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNzAxOTEyMCwiZXhwIjoxNzI3MTA1NTIwfQ.3NobzFtL-4CBdwJDkHajolTq-CKa0d-YwBuTT0_ZLGU
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/admin/reviews/delete/66e981f9b17c0927dd8e0ae8:
+    delete:
+      tags:
+        - Admin
+      summary: review delete
+      parameters:
+        - name: x-auth-admin-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMThjZmY1NDRlNjYzMmIyMWRhNzUiLCJuYW1lIjoiU2F5YW50YW4gQ2hha3JhYm9ydHkiLCJlbWFpbCI6InNheWFudGFuNjQ4QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNzAxOTEyMCwiZXhwIjoxNzI3MTA1NTIwfQ.3NobzFtL-4CBdwJDkHajolTq-CKa0d-YwBuTT0_ZLGU
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/user/auth/signup:
+    post:
+      tags:
+        - User
+      summary: user signup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Ratan Sarkar
+                email: ratan123@gmail.com
+                password: Ratan123@
+                confirmPassword: Ratan123@
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/user/auth/verify:
+    post:
+      tags:
+        - User
+      summary: user verify
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: sayantan648@gmail.com
+                otp: '957944'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/user/auth/login:
+    post:
+      tags:
+        - User
+      summary: user login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: ratan123@gmail.com
+                password: Ratan123@
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/user/auth/profile:
+    get:
+      tags:
+        - User
+      summary: user profile
+      parameters:
+        - name: x-auth-user-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMWFlMWY1NDRlNjYzMmIyMWRhOTciLCJuYW1lIjoiUmF0YW4gU2Fya2FyIiwiZW1haWwiOiJyYXRhbjEyM0BnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNzA3NTQ1NiwiZXhwIjoxNzI3MTYxODU2fQ.D_qX9T8qP1bGXdx4eo3j_pXBPtYXBdLwB8HeSz74CG8
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/admin/auth/change-password:
+    post:
+      tags:
+        - User
+      summary: user password update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                oldPassword: Sayantan648@1
+                newPassword: Sayantan648@
+      parameters:
+        - name: x-auth-user-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMWFlMWY1NDRlNjYzMmIyMWRhOTciLCJuYW1lIjoiUmF0YW4gU2Fya2FyIiwiZW1haWwiOiJyYXRhbjEyM0BnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNzA3NTQ1NiwiZXhwIjoxNzI3MTYxODU2fQ.D_qX9T8qP1bGXdx4eo3j_pXBPtYXBdLwB8HeSz74CG8
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/admin/auth/forgot-password:
+    post:
+      tags:
+        - User
+      summary: user forgot password
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: ratan123@gmail.com
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/admin/auth/reset-password:
+    post:
+      tags:
+        - User
+      summary: user reset password
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: ratan123@gmail.com
+                otp: '164307'
+                password: Ratan123@
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/user/carousel:
+    get:
+      tags:
+        - User
+      summary: carousel list
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/user/brands:
+    get:
+      tags:
+        - User
+      summary: brand list
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/user/categories:
+    get:
+      tags:
+        - User
+      summary: category list
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/user/products:
+    get:
+      tags:
+        - User
+      summary: Product list
+      parameters:
+        - name: page
+          in: query
+          description: Page number
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: limit
+          in: query
+          description: Number of products per page
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+        - name: brand
+          in: query
+          description: Filter by brand
+          required: false
+          schema:
+            type: string
+        - name: category
+          in: query
+          description: Filter by category
+          required: false
+          schema:
+            type: string
+        - name: subcategory
+          in: query
+          description: Filter by subcategory or subcategories. Ex- Smart Phones, SmartWatches
+          required: false
+          schema:
+            type: string
+        - name: range
+          in: query
+          description: Price range
+          required: false
+          schema:
+            type: string
+        - name: sort
+          in: query
+          description: Sort by
+          required: false
+          schema:
+            type: string
+            enum:
+              - costPrice
+              - sellingPrice
+              - mrp
+              - name
+              - rating
+        - name: order
+          in: query
+          description: Sort order
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        - name: rating
+          in: query
+          description: Rating value and up
+          required: false
+          schema:
+            type: number
+            enum:
+              - 1
+              - 2
+              - 3
+              - 4
+        - name: search
+          in: query
+          description: Search keyword
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/user/products/66efdb28c3ef3ae93c0e300b:
+    get:
+      tags:
+        - User
+      summary: product details
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/user/products/deals:
+    get:
+      tags:
+        - User
+      summary: product deal list
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/user/products/search:
+    get:
+      tags:
+        - User
+      summary: product name list for search suggestion
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/user/products/related/66efdb28c3ef3ae93c0e300b:
+    get:
+      tags:
+        - User
+      summary: product list that are related and shuffeled
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/user/cart/add/66efdb28c3ef3ae93c0e300b:
+    get:
+      tags:
+        - User
+      summary: add to cart
+      parameters:
+        - name: x-auth-user-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMWFlMWY1NDRlNjYzMmIyMWRhOTciLCJuYW1lIjoiUmF0YW4gU2Fya2FyIiwiZW1haWwiOiJyYXRhbjEyM0BnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNzA3NTQ1NiwiZXhwIjoxNzI3MTYxODU2fQ.D_qX9T8qP1bGXdx4eo3j_pXBPtYXBdLwB8HeSz74CG8
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/user/cart:
+    get:
+      tags:
+        - User
+      summary: cart list
+      parameters:
+        - name: x-auth-user-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMWFlMWY1NDRlNjYzMmIyMWRhOTciLCJuYW1lIjoiUmF0YW4gU2Fya2FyIiwiZW1haWwiOiJyYXRhbjEyM0BnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNzA3NTQ1NiwiZXhwIjoxNzI3MTYxODU2fQ.D_qX9T8qP1bGXdx4eo3j_pXBPtYXBdLwB8HeSz74CG8
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/user/cart/update/increase/66efdb28c3ef3ae93c0e300b:
+    get:
+      tags:
+        - User
+      summary: increase cart item
+      parameters:
+        - name: x-auth-user-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMWFlMWY1NDRlNjYzMmIyMWRhOTciLCJuYW1lIjoiUmF0YW4gU2Fya2FyIiwiZW1haWwiOiJyYXRhbjEyM0BnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNzA3NTQ1NiwiZXhwIjoxNzI3MTYxODU2fQ.D_qX9T8qP1bGXdx4eo3j_pXBPtYXBdLwB8HeSz74CG8
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/user/cart/update/decrease/66efdb28c3ef3ae93c0e300b:
+    delete:
+      tags:
+        - User
+      summary: decrease cart item
+      parameters:
+        - name: x-auth-user-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMWFlMWY1NDRlNjYzMmIyMWRhOTciLCJuYW1lIjoiUmF0YW4gU2Fya2FyIiwiZW1haWwiOiJyYXRhbjEyM0BnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNzA3NTQ1NiwiZXhwIjoxNzI3MTYxODU2fQ.D_qX9T8qP1bGXdx4eo3j_pXBPtYXBdLwB8HeSz74CG8
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/user/cart/remove/66efdb28c3ef3ae93c0e300b:
+    delete:
+      tags:
+        - User
+      summary: remove from cart
+      parameters:
+        - name: x-auth-user-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMWFlMWY1NDRlNjYzMmIyMWRhOTciLCJuYW1lIjoiUmF0YW4gU2Fya2FyIiwiZW1haWwiOiJyYXRhbjEyM0BnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNzA3NTQ1NiwiZXhwIjoxNzI3MTYxODU2fQ.D_qX9T8qP1bGXdx4eo3j_pXBPtYXBdLwB8HeSz74CG8
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/user/get/order:
+    get:
+      tags:
+        - User
+      summary: order list
+      parameters:
+        - name: x-auth-user-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMWFlMWY1NDRlNjYzMmIyMWRhOTciLCJuYW1lIjoiUmF0YW4gU2Fya2FyIiwiZW1haWwiOiJyYXRhbjEyM0BnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNzA3NTQ1NiwiZXhwIjoxNzI3MTYxODU2fQ.D_qX9T8qP1bGXdx4eo3j_pXBPtYXBdLwB8HeSz74CG8
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/user/reviews/66efdb28c3ef3ae93c0e300b:
+    get:
+      tags:
+        - User
+      summary: get all reviews for a product
+      parameters:
+        - name: x-auth-user-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMWFlMWY1NDRlNjYzMmIyMWRhOTciLCJuYW1lIjoiUmF0YW4gU2Fya2FyIiwiZW1haWwiOiJyYXRhbjEyM0BnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNzA3NTQ1NiwiZXhwIjoxNzI3MTYxODU2fQ.D_qX9T8qP1bGXdx4eo3j_pXBPtYXBdLwB8HeSz74CG8
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/user/reviews/create:
+    post:
+      tags:
+        - User
+      summary: add review for a product
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                productId: 66efdb28c3ef3ae93c0e300b
+                rating: '4'
+                title: Good Shirt
+                comment: Trustworthy and reliable dress from this store.
+      parameters:
+        - name: x-auth-user-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUyMWFlMWY1NDRlNjYzMmIyMWRhOTciLCJuYW1lIjoiUmF0YW4gU2Fya2FyIiwiZW1haWwiOiJyYXRhbjEyM0BnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNzA3NTQ1NiwiZXhwIjoxNzI3MTYxODU2fQ.D_qX9T8qP1bGXdx4eo3j_pXBPtYXBdLwB8HeSz74CG8
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
