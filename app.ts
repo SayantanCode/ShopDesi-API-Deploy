@@ -32,7 +32,7 @@ const app = express();
 const __dirname = dirname(fileURLToPath(import.meta.url));
 app.use(cors(
     {
-        origin: '*',
+        origin: ["https://6739a004568f319fe98bd25d--shopdesi.netlify.app", "http://localhost:3000", "http://localhost:3001"],
         // credentials: true,
     }
 ));
