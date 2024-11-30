@@ -30,7 +30,7 @@ dotenv.config();
 connectDb();
 const app = express();
 const __dirname = dirname(fileURLToPath(import.meta.url));
-app.use(cors('*'));
+app.use(cors());
 // app.use(cors({
 //   origin: '*',
 //   methods: ["GET", "POST", "PUT", "DELETE"],
