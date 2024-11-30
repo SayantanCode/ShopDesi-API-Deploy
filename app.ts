@@ -30,6 +30,7 @@ dotenv.config();
 connectDb();
 const app = express();
 const __dirname = dirname(fileURLToPath(import.meta.url));
+app.use(cors('*'));
 // app.use(cors({
 //   origin: '*',
 //   methods: ["GET", "POST", "PUT", "DELETE"],
@@ -47,7 +48,6 @@ app.use(
 );
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(express.static(path.join(__dirname, "public")));
-app.use(cors("*"))
 // routes
 
 // auth routes
