@@ -2,13 +2,24 @@ import express from "express";
 import productController from "../../modules/products/controllers/product.controller.js";
 import * as auth from "../../middleware/auth.js";
 import multer from "multer";
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, "public/uploads");
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + "-" + file.originalname);
-    },
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+import cloudinary from "../../config/cloudinary.js";
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, "public/uploads");
+//   },
+//   filename: (req, file, cb) => {
+//     cb(null, Date.now() + "-" + file.originalname);
+//   },
+// });
+// Configure Cloudinary Storage
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: async (req, file) => ({
+        folder: 'Product', // Replace with your desired folder name
+        allowed_formats: ['jpg', 'jpeg', 'png', 'webp', 'gif'], // Allowed formats
+        public_id: `${Date.now()}-${file.originalname}`, // Custom public ID
+    }),
 });
 const fileFilter = (req, file, cb) => {
     if (file.mimetype === "image/jpeg" ||

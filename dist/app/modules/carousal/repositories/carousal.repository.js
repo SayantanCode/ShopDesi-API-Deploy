@@ -1,8 +1,7 @@
 import carousalModel from "../models/carousalModel.js";
 import { response } from "../../../helper/response.js";
 import { Status } from "../../../helper/response.js";
-import config from "../../../config/index.js";
-import fs from "fs";
+import cloudinary from "../../../config/cloudinary.js";
 export const getCarousal = async () => {
     try {
         const carousal = await carousalModel.find();
@@ -30,7 +29,9 @@ export const addCarousal = async (body, file) => {
         const newCarousal = new carousalModel({
             title,
         });
-        newCarousal.image = `${config.baseUrl}/uploads/${file.filename}`;
+        // newCarousal.image = `${config.baseUrl}/uploads/${file.filename}`
+        const result = await cloudinary.uploader.upload(file.path);
+        newCarousal.image = result.secure_url;
         await newCarousal.save();
         return response({
             status: Status.CREATED,
@@ -64,12 +65,25 @@ export const updateCarousal = async (id, body, file) => {
         }, { new: true });
         if (updatedCarousal) {
             // Access the updatedCarousal variable safely
+            // if (file) {
+            //     if (updatedCarousal.image) {
+            //         fs.unlinkSync(`public/uploads/${updatedCarousal.image.split("/").pop()}`);
+            //     }
+            //     updatedCarousal.image = `${config.baseUrl}/uploads/${file.filename}`;
+            //     await updatedCarousal.save();
+            // }
             if (file) {
+                // delete old image
                 if (updatedCarousal.image) {
-                    fs.unlinkSync(`public/uploads/${updatedCarousal.image.split("/").pop()}`);
+                    const publicId = updatedCarousal.image.split('/').pop();
+                    if (publicId) {
+                        const publicIdWithoutExtension = publicId.split('.')[0];
+                        await cloudinary.uploader.destroy(publicIdWithoutExtension);
+                    }
+                    const result = await cloudinary.uploader.upload(file.path);
+                    updatedCarousal.image = result.secure_url;
+                    await updatedCarousal.save();
                 }
-                updatedCarousal.image = `${config.baseUrl}/uploads/${file.filename}`;
-                await updatedCarousal.save();
             }
             return response({
                 status: Status.SUCCESS,
@@ -101,8 +115,15 @@ export const deleteCarousal = async (id) => {
                 customMessage: "Carousal not found",
             });
         }
+        // if (carousal.image) {
+        //     fs.unlinkSync(`public/uploads/${carousal.image.split("/").pop()}`);
+        // }
         if (carousal.image) {
-            fs.unlinkSync(`public/uploads/${carousal.image.split("/").pop()}`);
+            const publicId = carousal.image.split('/').pop();
+            if (publicId) {
+                const publicIdWithoutExtension = publicId.split('.')[0];
+                await cloudinary.uploader.destroy(publicIdWithoutExtension);
+            }
         }
         await carousalModel.findByIdAndDelete(id);
         return response({

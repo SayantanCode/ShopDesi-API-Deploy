@@ -12,7 +12,7 @@ import { Status } from "../../../helper/response";
 import mongoose from "mongoose";
 import fs from "fs";
 import reviewModel from "../../reviews/models/reviewModel";
-
+import cloudinary from "../../../config/cloudinary";
 export const createProduct = async (body: IProduct, files: any) => {
   try {
     let {
@@ -94,9 +94,16 @@ export const createProduct = async (body: IProduct, files: any) => {
       newProduct.status = "Scheduled";
     }
     if (files) {
+      // for (let file of files) {
+      //   newProduct.image.push(`${config.baseUrl}/uploads/${file.filename}`);
+      // }
       for (let file of files) {
-        newProduct.image.push(`${config.baseUrl}/uploads/${file.filename}`);
-      }
+        const result = await cloudinary.uploader.upload(file.path);
+        newProduct.image.push(result.secure_url);
+
+        // Optionally delete the file from the local system
+        fs.unlinkSync(file.path);
+    }
     }
     await newProduct.save();
     return response({
@@ -553,22 +560,32 @@ export const updateProduct = async (
       const deletableImages = updatedProduct.image.filter(
         (image) => !oldImages.includes(image)
       );
+      // for (let image of deletableImages) {
+      //   fs.unlinkSync(`public/uploads/${image.split("/").pop()}`);
+      //   updatedProduct.image = updatedProduct.image.filter(
+      //     (img) => img !== image
+      //   );
+      // }
       for (let image of deletableImages) {
-        fs.unlinkSync(`public/uploads/${image.split("/").pop()}`);
-        updatedProduct.image = updatedProduct.image.filter(
-          (img) => img !== image
-        );
+        const publicId = image.split('/').pop();
+        if (publicId) {
+          const publicIdWithoutExtension = publicId.split('.')[0];
+          await cloudinary.uploader.destroy(publicIdWithoutExtension);
+          updatedProduct.image = updatedProduct.image.filter((img) => img !== image);
+        }
       }
     }else{
       updatedProduct.image = [];
     }
-    console.log(updatedProduct.image,"after old delete");
+    // console.log(updatedProduct.image,"after old delete");
     if (files) {
       for (let file of files) {
-        updatedProduct &&
-          updatedProduct.image.push(
-            `${config.baseUrl}/uploads/${file.filename}`
-          );
+        // updatedProduct &&
+        //   updatedProduct.image.push(
+        //     `${config.baseUrl}/uploads/${file.filename}`
+        //   );
+        const result = await cloudinary.uploader.upload(file.path);
+      updatedProduct.image.push(result.secure_url);
       }
     }
 
@@ -628,7 +645,12 @@ export const deleteProduct = async (_id: string) => {
     // 4th Delete main product along with images
     if (product && product.image.length > 0) {
       for (let image of product.image) {
-        fs.unlinkSync(`public/uploads/${image.split("/").pop()}`);
+        // fs.unlinkSync(`public/uploads/${image.split("/").pop()}`);
+        const publicId = image.split('/').pop();
+        if (publicId) {
+          const publicIdWithoutExtension = publicId.split('.')[0];
+          await cloudinary.uploader.destroy(publicIdWithoutExtension);
+        }
       }
     }
     await productModel.findByIdAndDelete({ _id });

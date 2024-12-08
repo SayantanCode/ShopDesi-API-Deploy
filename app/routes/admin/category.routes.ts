@@ -3,14 +3,25 @@ import { Request, Response, NextFunction } from "express";
 import categoryController from "../../modules/categories/controllers/category.controller";
 import * as auth from "../../middleware/auth";
 import multer from "multer";
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-      cb(null, "public/uploads");
-    },
-    filename: (req, file, cb) => {
-      cb(null, Date.now() + "-" + file.originalname);
-    },
-  });
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+import cloudinary from "../../config/cloudinary";
+// const storage = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//       cb(null, "public/uploads");
+//     },
+//     filename: (req, file, cb) => {
+//       cb(null, Date.now() + "-" + file.originalname);
+//     },
+//   });
+// Configure Cloudinary Storage
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: async (req, file) => ({
+    folder: 'Product-Category', // Replace with your desired folder name
+    allowed_formats: ['jpg', 'jpeg', 'png'], // Allowed formats
+    public_id: `${Date.now()}-${file.originalname}`, // Custom public ID
+  }),
+});
   const fileFilter = (req: any, file: any, cb: any) => {
     if (
       file.mimetype === "image/jpeg" ||

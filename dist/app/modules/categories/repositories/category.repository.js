@@ -2,9 +2,8 @@ import categoryModel from "../models/categoryModel.js";
 import subCategoryModel from "../../subCategories/models/subCategoryModel.js";
 import { response } from "../../../helper/response.js";
 import { Status } from "../../../helper/response.js";
-import config from "../../../config/index.js";
-import fs from "fs";
 import productModel from "../../products/models/productModel.js";
+import cloudinary from "../../../config/cloudinary.js";
 export const createCategory = async (body, file) => {
     try {
         const { name, description } = body;
@@ -32,8 +31,11 @@ export const createCategory = async (body, file) => {
         });
         if (description)
             newCategory.description = description;
-        if (file)
-            newCategory.image = `${config.baseUrl}/uploads/${file.filename}`;
+        // if(file) newCategory.image = `${config.baseUrl}/uploads/${file.filename}`
+        if (file) {
+            const result = await cloudinary.uploader.upload(file.path);
+            newCategory.image = result.secure_url;
+        }
         await newCategory.save();
         return response({
             status: Status.CREATED,
@@ -89,16 +91,29 @@ export const updateCategory = async (_id, body, file) => {
             name,
             description
         }, { new: true });
+        // if (file) {
+        //     const { filename } = file;
+        //     const image = `${config.baseUrl}/uploads/${filename}`;
+        //     if (updatedCategory && updatedCategory.image) {
+        //       fs.unlinkSync(`public/uploads/${existedCategory.image.split("/").pop()}`);
+        //       updatedCategory.image = image
+        //       await updatedCategory.save();
+        //     }
+        //     if(updatedCategory && !updatedCategory.image) {
+        //       updatedCategory.image = image
+        //       await updatedCategory.save();
+        //     }
+        //   }
         if (file) {
-            const { filename } = file;
-            const image = `${config.baseUrl}/uploads/${filename}`;
+            // destroy previous image
             if (updatedCategory && updatedCategory.image) {
-                fs.unlinkSync(`public/uploads/${existedCategory.image.split("/").pop()}`);
-                updatedCategory.image = image;
-                await updatedCategory.save();
-            }
-            if (updatedCategory && !updatedCategory.image) {
-                updatedCategory.image = image;
+                const publicId = updatedCategory.image.split('/').pop();
+                if (publicId) {
+                    const publicIdWithoutExtension = publicId.split('.')[0];
+                    await cloudinary.uploader.destroy(publicIdWithoutExtension);
+                }
+                const result = await cloudinary.uploader.upload(file.path);
+                updatedCategory.image = result.secure_url;
                 await updatedCategory.save();
             }
         }
@@ -138,8 +153,15 @@ export const deleteCategory = async (_id) => {
                 customMessage: "Categories cannot be deleted as it has sub categories associated with it. Please delete the sub-categories first",
             });
         }
+        // if(category.image) {
+        //     fs.unlinkSync(`public/uploads/${category.image.split("/").pop()}`);
+        // }
         if (category.image) {
-            fs.unlinkSync(`public/uploads/${category.image.split("/").pop()}`);
+            const publicId = category.image.split('/').pop();
+            if (publicId) {
+                const publicIdWithoutExtension = publicId.split('.')[0];
+                await cloudinary.uploader.destroy(publicIdWithoutExtension);
+            }
         }
         await categoryModel.findByIdAndDelete(_id);
         return response({
