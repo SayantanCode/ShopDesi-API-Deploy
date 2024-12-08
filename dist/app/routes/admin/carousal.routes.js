@@ -15,11 +15,14 @@ import cloudinary from "../../config/cloudinary.js";
 // Configure Cloudinary Storage
 const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
-    params: async (req, file) => ({
-        folder: "Carousal", // Replace with your desired folder name
-        allowed_formats: ["jpg", "jpeg", "png"], // Allowed formats
-        public_id: `${Date.now()}-${file.originalname}`, // Custom public ID
-    }),
+    params: async (req, file) => {
+        console.log("File being uploaded:", file); // Log the file info
+        return {
+            folder: "Carousal",
+            allowed_formats: ["jpg", "jpeg", "png"],
+            public_id: `${Date.now()}-${file.originalname}`,
+        };
+    },
 });
 const fileFilter = (req, file, cb) => {
     if (file.mimetype === "image/jpeg" ||
@@ -34,13 +37,16 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({ storage: storage, fileFilter: fileFilter });
 const uploadSingle = upload.single("image");
 const handleUpload = (req, res, next) => {
+    // console.log(req.file);
     uploadSingle(req, res, (err) => {
         if (err) {
+            console.log(err);
             return res.status(500).json({
                 success: false,
-                message: err.message,
+                message: err.message || "Failed to upload image",
             });
         }
+        console.log("success");
         next();
     });
 };

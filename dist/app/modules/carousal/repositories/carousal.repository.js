@@ -31,6 +31,7 @@ export const addCarousal = async (body, file) => {
         });
         // newCarousal.image = `${config.baseUrl}/uploads/${file.filename}`
         const result = await cloudinary.uploader.upload(file.path);
+        console.log(result);
         newCarousal.image = result.secure_url;
         await newCarousal.save();
         return response({
