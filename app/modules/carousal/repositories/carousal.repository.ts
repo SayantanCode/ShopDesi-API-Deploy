@@ -85,10 +85,12 @@ export const updateCarousal = async (id: string, body: any, file: any) => {
                         const publicIdWithoutExtension = publicId.split('.')[0];
                         await cloudinary.uploader.destroy(publicIdWithoutExtension);
                     }
-                    const result = await cloudinary.uploader.upload(file.path);
+                    
+                }
+                const result = await cloudinary.uploader.upload(file.path);
+                    console.log(result, "File uploaded successfully");
                     updatedCarousal.image = result.secure_url;
                     await updatedCarousal.save();
-                }
             }
             return response({
                 status: Status.SUCCESS,

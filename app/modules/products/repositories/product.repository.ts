@@ -102,7 +102,7 @@ export const createProduct = async (body: IProduct, files: any) => {
         newProduct.image.push(result.secure_url);
 
         // Optionally delete the file from the local system
-        fs.unlinkSync(file.path);
+        // fs.unlinkSync(file.path);
     }
     }
     await newProduct.save();
