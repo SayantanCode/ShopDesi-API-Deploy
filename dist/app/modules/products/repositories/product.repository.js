@@ -5,7 +5,6 @@ import { productSchema, updateProductSchema, } from "../../../validator/productV
 import { response } from "../../../helper/response.js";
 import { Status } from "../../../helper/response.js";
 import mongoose from "mongoose";
-import fs from "fs";
 import reviewModel from "../../reviews/models/reviewModel.js";
 import cloudinary from "../../../config/cloudinary.js";
 export const createProduct = async (body, files) => {
@@ -85,7 +84,7 @@ export const createProduct = async (body, files) => {
                 const result = await cloudinary.uploader.upload(file.path);
                 newProduct.image.push(result.secure_url);
                 // Optionally delete the file from the local system
-                fs.unlinkSync(file.path);
+                // fs.unlinkSync(file.path);
             }
         }
         await newProduct.save();
